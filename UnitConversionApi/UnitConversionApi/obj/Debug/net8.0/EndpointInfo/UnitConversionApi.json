@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "UnitConversionApi",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Convert": {
+      "post": {
+        "tags": [
+          "Convert"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Convert/units": {
+      "get": {
+        "tags": [
+          "Convert"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ConversionCategory": {
+        "enum": [
+          "Length",
+          "Temperature",
+          "Weight",
+          "Volume",
+          "Area",
+          "Speed"
+        ],
+        "type": "string"
+      },
+      "ConversionRequest": {
+        "required": [
+          "category",
+          "fromUnit",
+          "toUnit",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/ConversionCategory"
+          },
+          "fromUnit": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "toUnit": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
